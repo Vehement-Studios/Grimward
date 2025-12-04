@@ -7,13 +7,10 @@ public class Grimward : ModuleRules
         PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
         RegisterGameDependencies();
         RegisterIncludePaths();
-
-        if (Target.bBuildEditor)
-        {
-            RegisterEditorDependencies();
-        }
+        if (Target.bBuildEditor) { RegisterEditorDependencies(); }
     }
-    public void RegisterGameDependencies()
+
+    private void RegisterGameDependencies()
     {
         PublicDependencyModuleNames.AddRange(new string[]
         {
@@ -29,7 +26,7 @@ public class Grimward : ModuleRules
             
         });
     }
-    public void RegisterEditorDependencies()
+    private void RegisterEditorDependencies()
     {
         PublicDependencyModuleNames.AddRange(new string[]
         {
@@ -45,7 +42,7 @@ public class Grimward : ModuleRules
                 "LevelEditor"
         });
     }
-    public void RegisterIncludePaths()
+    private void RegisterIncludePaths()
     {
         PublicIncludePaths.AddRange(new string[]
         {
