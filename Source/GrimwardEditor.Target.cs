@@ -1,15 +1,15 @@
-// Copyright Vehement Studios
+// Copyright Epic Games, Inc. All Rights Reserved.
 
 using UnrealBuildTool;
 using System.Collections.Generic;
 
-public class GrimwardTarget : TargetRules
+public class GrimwardEditorTarget : TargetRules
 {
-    public GrimwardTarget(TargetInfo Target) : base(Target)
-    {
-        Type = TargetType.Editor;
-        DefaultBuildSettings = BuildSettingsVersion.V6;
-        IncludeOrderVersion = EngineIncludeOrderVersion.Unreal5_7;
-        ExtraModuleNames.Add("Grimward");
-    }
+	public GrimwardEditorTarget(TargetInfo Target) : base(Target)
+	{
+		Type = TargetType.Editor;
+		DefaultBuildSettings = BuildSettingsVersion.V6;
+		IncludeOrderVersion = EngineIncludeOrderVersion.Unreal5_7;
+		ExtraModuleNames.Add("Grimward");
+	}
 }

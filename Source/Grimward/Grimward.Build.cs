@@ -1,61 +1,46 @@
+// Copyright Epic Games, Inc. All Rights Reserved.
+
 using UnrealBuildTool;
 
 public class Grimward : ModuleRules
 {
-    public Grimward(ReadOnlyTargetRules Target) : base(Target)
-    {
-        PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
-        RegisterGameDependencies();
-        RegisterIncludePaths();
-        if (Target.bBuildEditor) { RegisterEditorDependencies(); }
-    }
+	public Grimward(ReadOnlyTargetRules Target) : base(Target)
+	{
+		PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
 
-    private void RegisterGameDependencies()
-    {
-        PublicDependencyModuleNames.AddRange(new string[]
-        {
-            "Core",
-            "CoreUObject",
-            "Engine",
-            "InputCore",
-            "EnhancedInput",
-        });
+		PublicDependencyModuleNames.AddRange(new string[] {
+			"Core",
+			"CoreUObject",
+			"Engine",
+			"InputCore",
+			"EnhancedInput",
+			"AIModule",
+			"NavigationSystem",
+			"StateTreeModule",
+			"GameplayStateTreeModule",
+			"Niagara",
+			"UMG",
+			"Slate"
+		});
 
-        PrivateDependencyModuleNames.AddRange(new string[]
-        {
-            
-        });
-    }
-    private void RegisterEditorDependencies()
-    {
-        PublicDependencyModuleNames.AddRange(new string[]
-        {
+		PrivateDependencyModuleNames.AddRange(new string[] { });
 
-        });
+		PublicIncludePaths.AddRange(new string[] {
+			"Grimward",
+			"Grimward/Variant_Strategy",
+			"Grimward/Variant_Strategy/UI",
+			"Grimward/Variant_TwinStick",
+			"Grimward/Variant_TwinStick/AI",
+			"Grimward/Variant_TwinStick/Gameplay",
+			"Grimward/Variant_TwinStick/UI"
+		});
 
-        PrivateDependencyModuleNames.AddRange(new string[]
-        {
-                "UnrealEd",
-                "Slate",
-                "SlateCore",
-                "EditorFramework",
-                "LevelEditor"
-        });
-    }
-    private void RegisterIncludePaths()
-    {
-        PublicIncludePaths.AddRange(new string[]
-        {
-            "Grimward/Public",
-            "Grimward/Public/Data",
-            "Grimward/Public/Game",
-        });
+		// Uncomment if you are using Slate UI
+		// PrivateDependencyModuleNames.AddRange(new string[] { "Slate", "SlateCore" });
 
-        PrivateIncludePaths.AddRange(new string[]
-        {
-            "Grimward/Private",
-            "Grimward/Private/Data",
-            "Grimward/Private/Game",
-        });
-    }
+		// Uncomment if you are using online features
+		// PrivateDependencyModuleNames.Add("OnlineSubsystem");
+
+		// To include OnlineSubsystemSteam, add it to the plugins section in your uproject file with the Enabled attribute set to true
+	}
 }
