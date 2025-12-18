@@ -1,16 +1,43 @@
-// Fill out your copyright notice in the Description page of Project Settings.
-
+// Copyright xTear Studios
+/*-------------------------------------------------------------------------*/
 #pragma once
-
 #include "CoreMinimal.h"
 #include "GameFramework/GameModeBase.h"
 #include "GW_MenuGameMode.generated.h"
+/*-------------------------------------------------------------------------*/
 
-/**
- * 
- */
+
+
+/*-------------------------------------------------------------------------*/
+/*  Game Data                                                              */
+/*-------------------------------------------------------------------------*/
+#pragma region GW_MenuGameMode.h
 UCLASS()
 class GRIMWARD_API AGW_MenuGameMode : public AGameModeBase
 {
 	GENERATED_BODY()
+
+public:
+	AGW_MenuGameMode();
+
+	virtual void BeginPlay() override;
+
+protected:
+	// Reference to the main menu widget class (set in Blueprint)
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Grimward|UI")
+	TSubclassOf<class UUserWidget> MainMenuWidgetClass;
+
+	// Instance of the created widget
+	UPROPERTY()
+	class UUserWidget* MainMenuWidget;
+
+	// Background music for menu
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Grimward|Audio")
+	USoundBase* MenuMusic;
+
+private:
+	void CreateAndShowMainMenu();
+	
 };
+#pragma endregion 
+/*-------------------------------------------------------------------------*/

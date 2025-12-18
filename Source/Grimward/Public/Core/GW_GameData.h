@@ -1,11 +1,17 @@
+// Copyright xTear Studios
+/*-------------------------------------------------------------------------*/
 #pragma once
 #include "CoreMinimal.h"
 #include "Engine/DataTable.h"
 #include "GW_GameData.generated.h"
+/*-------------------------------------------------------------------------*/
 
 
 
-
+/*-------------------------------------------------------------------------*/
+/*  Game Data                                                              */
+/*-------------------------------------------------------------------------*/
+#pragma region GW_GameData.h
 UENUM(BlueprintType)
 enum class EGW_CharacterClass : uint8
 {
@@ -146,3 +152,5 @@ struct FGW_PlayerProfile
     UPROPERTY(EditAnywhere, BlueprintReadWrite)
     TMap<FName, int32> LevelCompletionCount;
 };
+#pragma endregion 
+/*-------------------------------------------------------------------------*/
