@@ -9,7 +9,7 @@
 
 
 /*-------------------------------------------------------------------------*/
-/*  Game Data                                                              */
+/*  Menu Game Mode                                                         */
 /*-------------------------------------------------------------------------*/
 #pragma region GW_MenuGameMode.h
 UCLASS()
@@ -29,7 +29,7 @@ protected:
 
 	// Instance of the created widget
 	UPROPERTY()
-	class UUserWidget* MainMenuWidget;
+	UUserWidget* MainMenuWidget;
 
 	// Background music for menu
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Grimward|Audio")

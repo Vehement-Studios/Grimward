@@ -8,9 +8,9 @@
 
 
 /*-------------------------------------------------------------------------*/
-/*  Game Data                                                              */
+/*  Functions                                                              */
 /*-------------------------------------------------------------------------*/
-#pragma region GW_MenuGameMode.h
+#pragma region GW_MenuGameMode.cpp
 AGW_MenuGameMode::AGW_MenuGameMode()
 {
 	// No pawn needed in menu
