@@ -28,52 +28,52 @@ protected:
     
     // Main Buttons
     UPROPERTY(meta = (BindWidget))
-    class UButton* PlayButton;
+    UButton* PlayButton;
 
     UPROPERTY(meta = (BindWidget))
-    class UButton* ShopButton;
+    UButton* ShopButton;
 
     UPROPERTY(meta = (BindWidget))
-    class UButton* InventoryButton;
+    UButton* InventoryButton;
 
     UPROPERTY(meta = (BindWidget))
-    class UButton* AchievementsButton;
+    UButton* AchievementsButton;
 
     UPROPERTY(meta = (BindWidget))
-    class UButton* SettingsButton;
+    UButton* SettingsButton;
 
     UPROPERTY(meta = (BindWidget))
-    class UButton* QuitButton;
+    UButton* QuitButton;
 
     // Player Info Display
     UPROPERTY(meta = (BindWidget))
-    class UTextBlock* PlayerNameText;
+    UTextBlock* PlayerNameText;
 
     UPROPERTY(meta = (BindWidget))
-    class UTextBlock* PlayerLevelText;
+    UTextBlock* PlayerLevelText;
 
     UPROPERTY(meta = (BindWidget))
-    class UTextBlock* PlayerCurrencyText;
+    UTextBlock* PlayerCurrencyText;
 
     UPROPERTY(meta = (BindWidget))
-    class UTextBlock* ExperienceText;
+    UTextBlock* ExperienceText;
 
     UPROPERTY(meta = (BindWidget))
-    class UProgressBar* ExperienceBar;
+    UProgressBar* ExperienceBar;
 
     // Character Class Display (Optional - can show selected class)
     UPROPERTY(meta = (BindWidget))
-    class UImage* CharacterClassIcon;
+    UImage* CharacterClassIcon;
 
     UPROPERTY(meta = (BindWidget))
-    class UTextBlock* CharacterClassText;
+    UTextBlock* CharacterClassText;
 
     // Background/Decoration (Optional)
     UPROPERTY(meta = (BindWidgetOptional))
-    class UImage* BackgroundImage;
+    UImage* BackgroundImage;
 
     UPROPERTY(meta = (BindWidgetOptional))
-    class UImage* LogoImage;
+    UImage* LogoImage;
 
     // ========================================
     // Button Click Handlers
@@ -115,7 +115,7 @@ protected:
 
 private:
     // Helper function to get game instance
-    class UGW_GameInstance* GetGWGameInstance() const;
+    UGW_GameInstance* GetGWGameInstance() const;
 
     // Sound effects (optional)
     UPROPERTY(EditDefaultsOnly, Category = "Grimward|Audio")
