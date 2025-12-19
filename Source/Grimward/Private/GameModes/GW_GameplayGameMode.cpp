@@ -27,7 +27,7 @@ void AGW_GameplayGameMode::BeginPlay()
 	{
 		// TODO: Add dynamic gameplay Music System here
 		
-		// UGameplayStatics::PlaySound2D(this, GameplayMusic, 0.5f, 1.0f, 0.0f);
+		UGameplayStatics::PlaySound2D(this, GameplayMusic, 0.5f, 1.0f, 0.0f);
 	}
 
 	// Set proper input mode for gameplay
