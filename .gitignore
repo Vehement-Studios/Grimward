@@ -116,15 +116,6 @@ Backup/
 *.tmp
 *.temp
 
-### For now. Will update when file system is active
-*.uasset
-*.umap
-*.tga
-*.fbx
-*.db
-/.junie/mcp
-*.raw
-
 ### ============================================================
 ### Codespace Settings
 ### ============================================================
