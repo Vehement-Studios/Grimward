@@ -25,7 +25,7 @@ public:
 protected:
 	// Reference to the main menu widget class (set in Blueprint)
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Grimward|UI")
-	TSubclassOf<class UUserWidget> MainMenuWidgetClass;
+	TSubclassOf<class UGW_MainMenuWidget> MainMenuWidgetClass;
 
 	// Instance of the created widget
 	UPROPERTY()

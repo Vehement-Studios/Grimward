@@ -1,7 +1,7 @@
 // Copyright xTear Studios
 /*-------------------------------------------------------------------------*/
 #include "Public/GameModes/GW_MenuGameMode.h"
-#include "Blueprint/UserWidget.h"
+#include "UI/Menus/GW_MainMenuWidget.h"
 #include "Kismet/GameplayStatics.h"
 /*-------------------------------------------------------------------------*/
 
@@ -47,7 +47,7 @@ void AGW_MenuGameMode::CreateAndShowMainMenu()
 	}
 
 	// Create the widget
-	MainMenuWidget = CreateWidget<UUserWidget>(GetWorld(), MainMenuWidgetClass);
+	MainMenuWidget = CreateWidget<UGW_MainMenuWidget>(GetWorld(), MainMenuWidgetClass);
     
 	if (!MainMenuWidget)
 	{
