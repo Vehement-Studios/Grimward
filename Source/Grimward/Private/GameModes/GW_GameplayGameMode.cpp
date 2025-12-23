@@ -2,6 +2,13 @@
 /*-------------------------------------------------------------------------*/
 #include "Public/GameModes/GW_GameplayGameMode.h"
 #include "Kismet/GameplayStatics.h"
+
+// Image Testing:
+#include "IImageWrapper.h"
+#include "IImageWrapperModule.h"
+#include "Misc/FileHelper.h"
+#include "HAL/PlatformFileManager.h"
+#include "Misc/Paths.h"
 /*-------------------------------------------------------------------------*/
 
 
@@ -51,20 +58,82 @@ void AGW_GameplayGameMode::BeginPlay()
 
 void AGW_GameplayGameMode::GenerateDebugMap(int32 Seed)
 {
-	if (MapGenerator)
-	{
-		MapDebugTexture = MapGenerator->GenerateTestDebugTexture();
-		if (MapDebugTexture)
-		{
-			FString PackageName = TEXT("/Game/GeneratedMap");
-			UPackage* Package = CreatePackage(*PackageName);
-			MapDebugTexture->Rename(TEXT("DebugMap"), Package);
-			
-			Package->MarkPackageDirty();
+	if (!MapGenerator)
+    {
+        FActorSpawnParameters SpawnParams;
+        MapGenerator = GetWorld()->SpawnActor<AGW_MapGenerator>(AGW_MapGenerator::StaticClass());
+    }
+    
+    if (MapGenerator)
+    {
+        UE_LOG(LogTemp, Warning, TEXT("Generating map with seed: %d"), Seed);
+        
+        MapGenerator->GenerateBiomeMap(Seed);
+        UTexture2D* DebugTexture = MapGenerator->GenerateTestDebugTexture();
+        
+        if (DebugTexture)
+        {
+            // Get the texture data
+            FTexture2DMipMap& Mip = DebugTexture->GetPlatformData()->Mips[0];
+            void* Data = Mip.BulkData.Lock(LOCK_READ_ONLY);
             
-			UE_LOG(LogTemp, Warning, TEXT("Debug texture saved! Check /Game/GeneratedMaps/"));
-		}
-	}
+            if (Data)
+            {
+                // Create image wrapper for PNG
+                IImageWrapperModule& ImageWrapperModule = FModuleManager::LoadModuleChecked<IImageWrapperModule>(FName("ImageWrapper"));
+                TSharedPtr<IImageWrapper> ImageWrapper = ImageWrapperModule.CreateImageWrapper(EImageFormat::PNG);
+                
+                // Set the raw data
+                int32 Width = DebugTexture->GetSizeX();
+                int32 Height = DebugTexture->GetSizeY();
+                
+                if (ImageWrapper.IsValid() && ImageWrapper->SetRaw(Data, Mip.BulkData.GetBulkDataSize(), Width, Height, ERGBFormat::BGRA, 8))
+                {
+                    // Compress to PNG
+                    const TArray64<uint8>& CompressedData = ImageWrapper->GetCompressed(100);
+                    
+                    // Save to project directory
+                    FString SaveDirectory = FPaths::ProjectSavedDir() + TEXT("Screenshots/");
+                    FString FileName = FString::Printf(TEXT("BiomeMap_Seed_%d.png"), Seed);
+                    FString FilePath = SaveDirectory + FileName;
+                    
+                    // Ensure directory exists
+                    IPlatformFile& PlatformFile = FPlatformFileManager::Get().GetPlatformFile();
+                    if (!PlatformFile.DirectoryExists(*SaveDirectory))
+                    {
+                        PlatformFile.CreateDirectory(*SaveDirectory);
+                    }
+                    
+                    // Write file
+                    if (FFileHelper::SaveArrayToFile(CompressedData, *FilePath))
+                    {
+                        UE_LOG(LogTemp, Warning, TEXT("✓ Map saved to: %s"), *FilePath);
+                        
+                        // Open the folder in explorer
+                        FPlatformProcess::ExploreFolder(*SaveDirectory);
+                    }
+                    else
+                    {
+                        UE_LOG(LogTemp, Error, TEXT("✗ Failed to save file to: %s"), *FilePath);
+                    }
+                }
+                else
+                {
+                    UE_LOG(LogTemp, Error, TEXT("✗ Failed to compress image data"));
+                }
+                
+                Mip.BulkData.Unlock();
+            }
+            else
+            {
+                UE_LOG(LogTemp, Error, TEXT("✗ Failed to lock texture data"));
+            }
+        }
+        else
+        {
+            UE_LOG(LogTemp, Error, TEXT("✗ Failed to generate debug texture"));
+        }
+    }
 }
 
 void AGW_GameplayGameMode::SetupGameplayInput()

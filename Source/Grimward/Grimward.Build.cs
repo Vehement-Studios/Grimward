@@ -20,7 +20,8 @@ public class Grimward : ModuleRules
 			"GameplayStateTreeModule",
 			"Niagara",
 			"UMG",
-			"Slate"
+			"Slate",
+			"ImageWrapper"
 		});
 
 		PrivateDependencyModuleNames.AddRange(new string[] { });
