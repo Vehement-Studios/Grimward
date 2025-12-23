@@ -32,6 +32,39 @@ void AGW_GameplayGameMode::BeginPlay()
 
 	// Set proper input mode for gameplay
 	SetupGameplayInput();
+	
+	// Spawn the map generator
+	if (!MapGenerator)
+	{
+		FActorSpawnParameters SpawnParams;
+		SpawnParams.Owner = this;
+		MapGenerator = GetWorld()->SpawnActor<AGW_MapGenerator>(AGW_MapGenerator::StaticClass(), FVector::ZeroVector, FRotator::ZeroRotator, SpawnParams);
+        
+		if (MapGenerator)
+		{
+			UE_LOG(LogTemp, Log, TEXT("MapGenerator spawned successfully"));
+		}
+	}
+	MapGenerator->GenerateBiomeMap(12345);
+
+}
+
+void AGW_GameplayGameMode::GenerateDebugMap(int32 Seed)
+{
+	if (MapGenerator)
+	{
+		MapDebugTexture = MapGenerator->GenerateTestDebugTexture();
+		if (MapDebugTexture)
+		{
+			FString PackageName = TEXT("/Game/GeneratedMap");
+			UPackage* Package = CreatePackage(*PackageName);
+			MapDebugTexture->Rename(TEXT("DebugMap"), Package);
+			
+			Package->MarkPackageDirty();
+            
+			UE_LOG(LogTemp, Warning, TEXT("Debug texture saved! Check /Game/GeneratedMaps/"));
+		}
+	}
 }
 
 void AGW_GameplayGameMode::SetupGameplayInput()

@@ -35,9 +35,9 @@ protected:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Grimward|Audio")
 	USoundBase* MenuMusic;
 
+	
 private:
 	void CreateAndShowMainMenu();
-	
 };
 #pragma endregion 
 /*-------------------------------------------------------------------------*/

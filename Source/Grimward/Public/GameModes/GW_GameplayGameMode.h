@@ -2,6 +2,7 @@
 /*-------------------------------------------------------------------------*/
 #pragma once
 #include "CoreMinimal.h"
+#include "Core/ExplorationMap/GW_MapGenerator.h"
 #include "GameFramework/GameModeBase.h"
 #include "GW_GameplayGameMode.generated.h"
 /*-------------------------------------------------------------------------*/
@@ -21,7 +22,10 @@ public:
 	AGW_GameplayGameMode();
 
 	virtual void BeginPlay() override;
-
+	
+	UFUNCTION(Exec)
+	void GenerateDebugMap(int32 Seed = 12345);
+	
 protected:
 	// Background music for gameplay
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Grimward|Audio")
@@ -29,6 +33,12 @@ protected:
 
 private:
 	void SetupGameplayInput();
+	
+	UPROPERTY()
+	AGW_MapGenerator* MapGenerator; // Temp for testing
+	
+	UPROPERTY()
+	UTexture2D* MapDebugTexture; // Temp for testing
 };
 #pragma endregion
 /*-------------------------------------------------------------------------*/
