@@ -4,6 +4,7 @@
 #include "CoreMinimal.h"
 #include "Core/ExplorationMap/GW_MapGenerator.h"
 #include "GameFramework/GameModeBase.h"
+#include "UI/Menus/GW_MapGeneratorWidget.h"
 #include "GW_GameplayGameMode.generated.h"
 /*-------------------------------------------------------------------------*/
 
@@ -31,6 +32,13 @@ protected:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Grimward|Audio")
 	USoundBase* GameplayMusic;
 
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Grimward|Display")
+	UGW_MapGeneratorWidget* MapGeneratorWidget;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Grimward|UI")
+	TSubclassOf<class UGW_MapGeneratorWidget> MapGeneratorWidgetClass;
+
+	
 private:
 	void SetupGameplayInput();
 	

@@ -190,9 +190,17 @@ void AGW_MapGenerator::DetermmineBiomes()
 
 EGW_HexBiome AGW_MapGenerator::DetermineBiomeCategory(float Altitude, float Temperature, float Moisture, float Enchantment, FString& OutCategory)
 {
-    // WATER CHECK - Water can replace anything if moisture is extremely high
-    // This happens regardless of altitude
-    if (Moisture > 1.6f)
+    // WATER CHECK - Multiple conditions for water spawning
+    
+    // Very high moisture = water anywhere (oceans, large lakes)
+    if (Moisture > 1.3f)  // Lowered from 1.5f
+    {
+        OutCategory = TEXT("water");
+        return GetRandomTileForCategory(OutCategory);
+    }
+    
+    // Low altitude + high moisture = coastal water/seas
+    if (Altitude < 0.2f && Moisture > 1.0f)
     {
         OutCategory = TEXT("water");
         return GetRandomTileForCategory(OutCategory);
@@ -224,7 +232,7 @@ EGW_HexBiome AGW_MapGenerator::DetermineBiomeCategory(float Altitude, float Temp
     else if (IsBetween(Altitude, 0.9f, 1.2f))
     {
         // Great Peaks can also spawn in high mountains with very high enchantment
-        if (Enchantment > 1.5f && RandomStream.FRand() < 0.3f) // 30% chance with high enchantment
+        if (Enchantment > 1.5f && RandomStream.FRand() < 0.3f)
         {
             OutCategory = TEXT("great_peak");
             return GetRandomTileForCategory(OutCategory);
@@ -236,6 +244,13 @@ EGW_HexBiome AGW_MapGenerator::DetermineBiomeCategory(float Altitude, float Temp
     // MODERATE ALTITUDE - Most biomes
     else if (IsBetween(Altitude, 0.3f, 0.9f))
     {
+        // Add water spawning in moderate altitude too (lakes)
+        if (Moisture > 1.1f)
+        {
+            OutCategory = TEXT("water");
+            return GetRandomTileForCategory(OutCategory);
+        }
+        
         // COLD REGIONS
         if (Temperature < 0.5f)
         {
@@ -291,11 +306,17 @@ EGW_HexBiome AGW_MapGenerator::DetermineBiomeCategory(float Altitude, float Temp
             }
         }
     }
-    // LOW ALTITUDE - Swamps and lowlands
+    // LOW ALTITUDE - Swamps, water, and lowlands
     else // Altitude < 0.3f
     {
-        // Very wet lowlands = Swamp (but not as wet as water)
-        if (Moisture > 0.8f && Moisture <= 1.6f)
+        // Very wet lowlands = Water (oceans, lakes) - even more aggressive
+        if (Moisture > 0.9f)  // Lowered from 1.2f
+        {
+            OutCategory = TEXT("water");
+            return GetRandomTileForCategory(OutCategory);
+        }
+        // Moderately wet lowlands = Swamp
+        else if (Moisture > 0.7f)  // Lowered from 0.8f
         {
             OutCategory = TEXT("swamp");
             return GetRandomTileForCategory(OutCategory);

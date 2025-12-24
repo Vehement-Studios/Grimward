@@ -2,66 +2,11 @@
 /*-------------------------------------------------------------------------*/
 #pragma once
 #include "CoreMinimal.h"
+#include "GW_TileTypes.h"
 #include "GameFramework/Actor.h"
 #include "GW_MapGenerator.generated.h"
 /*-------------------------------------------------------------------------*/
 
-
-UENUM(BlueprintType)
-enum class EGW_HexBiome : uint8
-{
-	Hill,
-	Forest,
-	Mountain,
-	Desert,
-	Swamp,
-	MysticForest,
-	PoisonousSwamp,
-	DragonBoneyard,
-	Lavascape,
-	IceSpike,
-	GreatPeak,
-	Water
-};
-
-UENUM(BlueprintType)
-enum class EGW_HexPOI : uint8
-{
-	None,
-	Monster,
-	MarauderCamp,
-	Ruin,
-	Labyrinth,
-	Village,
-	Tomb,
-	Monolith,
-	Oasis,
-	WizardTower,
-	Crypt,
-	Temple,
-	Rift,
-	Forge,
-	DragonPerch,
-	CrystalField,
-};
-
-UENUM(BlueprintType)
-enum class EGW_Megagon : uint8
-{
-	DragonDen,
-	MinotaurLabrinth,
-	AncientDragon,
-	MageCastle,
-	DarkCastle,
-	Pyrolith,
-	Cryolith,
-	ForestsOfGrim,
-	GabagolGrudge,
-	CorpseOfNorridia,
-	MinesOfMortem,
-	TheGreatForge,
-	DimensionalStronghold
-};
 
 USTRUCT(BlueprintType)
 struct FGW_BiomeGenerationInfo
@@ -112,43 +57,43 @@ public:
 	AGW_MapGenerator();
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Generation")
-	int32 GenWidth = 1000;
+	int32 GenWidth = 128;
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Generation")
-	int32 GenHeight = 1000;
+	int32 GenHeight = 128;
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Generation")
 	int32 Seed = 0;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Generation")
-	float TemperaturePeriod = 300.f;
+	float TemperaturePeriod = 5.f;
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Generation")
-	int32 TemperatureOctaves = 5;
+	int32 TemperatureOctaves = 1;
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Generation")
-	float MoisturePeriod = 300.f;
+	float MoisturePeriod = 5.f;
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Generation")
-	int32 MoistureOctaves = 5;
+	int32 MoistureOctaves = 1;
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Generation")
-	float AltitudePeriod = 150.f;
+	float AltitudePeriod = 5.f;
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Generation")
-	int32 AltitudeOctaves = 5;
+	int32 AltitudeOctaves = 1;
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Generation")
-	float VolatilityPeriod = 100.f;
+	float VolatilityPeriod = 5.f;
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Generation")
-	int32 VolatilityOctaves = 3;
+	int32 VolatilityOctaves = 1;
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Generation")
-	float EnchantmentPeriod = 100.f;
+	float EnchantmentPeriod = 5.f;
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Generation")
-	int32 EnchantmentOctaves = 3;
+	int32 EnchantmentOctaves = 1;
 	
 	UFUNCTION(BlueprintCallable, Category = "Generation")
 	void GenerateBiomeMap(int32 InSeed);

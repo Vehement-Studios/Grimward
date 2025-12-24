@@ -9,6 +9,7 @@
 #include "Misc/FileHelper.h"
 #include "HAL/PlatformFileManager.h"
 #include "Misc/Paths.h"
+#include "UI/Menus/GW_MapGeneratorWidget.h"
 /*-------------------------------------------------------------------------*/
 
 
@@ -52,8 +53,20 @@ void AGW_GameplayGameMode::BeginPlay()
 			UE_LOG(LogTemp, Log, TEXT("MapGenerator spawned successfully"));
 		}
 	}
-	MapGenerator->GenerateBiomeMap(12345);
-
+	
+	if (UGW_MapGeneratorWidget* Widget = CreateWidget<UGW_MapGeneratorWidget>(GetWorld(), MapGeneratorWidgetClass))
+	{
+		Widget->AddToViewport();
+        
+		// Set input mode to UI
+		if (APlayerController* PC = GetWorld()->GetFirstPlayerController())
+		{
+			FInputModeUIOnly InputMode;
+			InputMode.SetWidgetToFocus(Widget->TakeWidget());
+			PC->SetInputMode(InputMode);
+			PC->bShowMouseCursor = true;
+		}
+	}
 }
 
 void AGW_GameplayGameMode::GenerateDebugMap(int32 Seed)
