@@ -5,6 +5,12 @@
 #include "Kismet/KismetMathLibrary.h"
 /*-------------------------------------------------------------------------*/
 
+
+
+/*-------------------------------------------------------------------------*/
+/*  Functions                                                              */
+/*-------------------------------------------------------------------------*/
+#pragma region GW_MapGenerator.cpp
 AGW_MapGenerator::AGW_MapGenerator()
 {
     PrimaryActorTick.bCanEverTick = false;
@@ -463,3 +469,5 @@ FColor AGW_MapGenerator::GetColorForBiome(EGW_HexBiome Biome) const
             return FColor::Magenta;                 // Error color
     }
 }
+#pragma endregion
+/*-------------------------------------------------------------------------*/

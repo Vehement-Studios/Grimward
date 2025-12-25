@@ -2,7 +2,7 @@
 
 using UnrealBuildTool;
 
-public class Grimward : ModuleRules
+public class 	Grimward : ModuleRules
 {
 	public Grimward(ReadOnlyTargetRules Target) : base(Target)
 	{
@@ -21,6 +21,7 @@ public class Grimward : ModuleRules
 			"Niagara",
 			"UMG",
 			"Slate",
+			"SlateCore",
 			"ImageWrapper"
 		});
 

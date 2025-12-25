@@ -16,6 +16,12 @@
 #include "Misc/Paths.h"
 /*-------------------------------------------------------------------------*/
 
+
+
+/*-------------------------------------------------------------------------*/
+/*  Functions                                                              */
+/*-------------------------------------------------------------------------*/
+#pragma region GW_MapGeneratorWidget.cpp
 void UGW_MapGeneratorWidget::NativeConstruct()
 {
     Super::NativeConstruct();
@@ -375,3 +381,5 @@ int32 UGW_MapGeneratorWidget::GetOctaveFromInput(UEditableTextBox* Input, int32 
     }
     return DefaultValue;
 }
+#pragma endregion
+/*-------------------------------------------------------------------------*/
